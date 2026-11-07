@@ -1,0 +1,142 @@
+services:
+  cve-2022-28512:
+    build: ../../FullChain/FullChain1/CVE-2022-28512/fantasticblog
+    ports:
+    - "${FC_FANTASTIC_PORT:-10000}:80"
+    depends_on:
+      shared-db:
+        condition: service_healthy
+    networks:
+      frontend_network:
+        ipv4_address: 172.60.0.40
+    volumes:
+    - ./flags/flag_cve_2022_28512.txt:/root/flag.txt:ro
+    - ./flags/flag_cve_2022_28512.txt:/tmp/flag.txt:ro
+  cve-2022-30887:
+    build: ../../FullChain/FullChain1/CVE-2022-30887/dawapharma
+    ports:
+    - "${FC_DAWA_PORT:-10001}:80"
+    volumes:
+    - ./flags/flag_cve_2022_30887.txt:/tmp/flag.txt:ro
+    - ./hint.txt:/tmp/hint.txt:ro
+    - ../scripts/active_defense_guard.sh:/usr/local/bin/active_defense_guard.sh:ro
+    entrypoint: ["/bin/bash", "-c", "/usr/local/bin/active_defense_guard.sh & exec apache2-foreground"]
+    depends_on:
+      shared-db:
+        condition: service_healthy
+    environment:
+    - DB_HOST=shared-db
+    - DB_USER=root
+    - DB_PASSWORD=pharmacy123
+    - DB_NAME=mayurik_pharmacy
+    - APACHE_DOCUMENT_ROOT=/var/www/html
+    - PHP_SESSION_SAVE_PATH=/tmp
+    - DEFENSE_TARGET_SERVICE=cve-2022-30887
+    - DEFENSE_AFFECTED_CAPABILITY=dawapharma_webshell_rce
+    - WATCH_DIR=/var/www/html/uploads
+    - TRIGGER_DELAY=15
+    networks:
+      frontend_network:
+        ipv4_address: 172.60.0.10
+      internal_network:
+        ipv4_address: 172.61.0.10
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost/login.php || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 60s
+  shared-db:
+    image: mysql:8.0
+    environment:
+    - MYSQL_ROOT_PASSWORD=pharmacy123
+    - MYSQL_DATABASE=mayurik_pharmacy
+    - MYSQL_USER=pharmacy_user
+    - MYSQL_PASSWORD=pharmacy123
+    - MYSQL_INITDB_SKIP_TZINFO=1
+    volumes:
+    - 3306_data:/var/lib/mysql
+    - ./database_init.sql:/docker-entrypoint-initdb.d/00_database_init.sql:ro
+    - ../../FullChain/FullChain1/CVE-2022-30887/dawapharma/dawapharma/database/mayurik_pharmacy.sql:/docker-entrypoint-initdb.d/01_mayurik_pharmacy.sql:ro
+    - ../../FullChain/FullChain1/CVE-2022-28512/fantasticblog/databasefile/blog_admin_db.sql:/docker-entrypoint-initdb.d/02_blog_admin_db.sql:ro
+    - ../../FullChain/FullChain1/CVE-2022-28512/fantasticblog/databasefile/pharmacy_credentials.sql:/docker-entrypoint-initdb.d/03_pharmacy_credentials.sql:ro
+    - ../../FullChain/FullChain1/CVE-2022-28512/fantasticblog/databasefile/wordpress.sql:/docker-entrypoint-initdb.d/04_wordpress.sql:ro
+    - ./flags/flag.sql:/docker-entrypoint-initdb.d/05_flag.sql:ro
+    - ./flags/flag_cve_2022_28512.txt:/root/flag.txt:ro
+    - ./flags/flag_cve_2022_28512.txt:/tmp/flag.txt:ro
+    - ./flags/flag_cve_2022_30887.txt:/root/flag_28512.txt:ro
+    - ./flags/flag_cve_2022_30887.txt:/tmp/flag_28512.txt:ro
+    command: --default-authentication-plugin=mysql_native_password --sql_mode="" --innodb-use-native-aio=0
+    networks:
+      frontend_network:
+        ipv4_address: 172.60.0.20
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppharmacy123"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+    - PMA_HOST=shared-db
+    - PMA_USER=root
+    - PMA_PASSWORD=pharmacy123
+    - PMA_ABSOLUTE_URI=http://localhost:10080/
+    depends_on:
+      shared-db:
+        condition: service_healthy
+    networks:
+      frontend_network:
+        ipv4_address: 172.60.0.30
+    volumes:
+    - ./flags/flag_cve_2022_30887.txt:/tmp/flag.txt:ro
+  cve-2023-23752:
+    image: vulhub/joomla:4.2.7
+    platform: linux/amd64
+    depends_on:
+      - mysql
+    environment:
+      - JOOMLA_DB_HOST=mysql
+      - JOOMLA_DB_PORT=3306
+      - JOOMLA_DB_USER=root
+      - JOOMLA_DB_PASSWORD=vulhub
+      - JOOMLA_DB_NAME=joomla
+    volumes:
+      - ./flags/flag_cve_2023_23752.txt:/tmp/flag.txt:ro
+      - ./init-update.php:/init-update.php:ro
+    command: ["sh", "-lc", "php /init-update.php & exec apache2-foreground"]
+    networks:
+      internal_network:
+        ipv4_address: 172.61.0.50
+  mysql:
+    image: mysql:5.7
+    platform: linux/amd64
+    environment:
+      - MYSQL_ROOT_PASSWORD=vulhub
+    networks:
+      internal_network:
+        ipv4_address: 172.61.0.101
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pvulhub"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 30s
+networks:
+  frontend_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.60.0.0/16
+  internal_network:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.61.0.0/16
+volumes:
+  3306_data:
+    driver: local
+  10090_data:
+    driver: local

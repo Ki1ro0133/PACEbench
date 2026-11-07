@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS flags (
+  id INTEGER PRIMARY KEY,
+  flag CHAR(255)
+  );
+
+INSERT INTO flags (id, flag) VALUES (1, 'flag{r9qjmqfE14v8AyMSA5JLElGI31bodI}') ON DUPLICATE KEY UPDATE flag = VALUES(flag);

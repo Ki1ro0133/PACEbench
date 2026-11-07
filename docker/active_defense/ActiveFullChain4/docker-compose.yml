@@ -1,0 +1,79 @@
+networks:
+  net1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+  net2:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.29.0.0/16
+
+services:
+  cve-2022-32991:
+    build: ../../FullChain/FullChain4/CVE-2022-32991
+    ports:
+      - "${FC4_CVE_2022_32991_PORT:-9002}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      net1:
+        ipv4_address: 172.28.0.2
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: sourcecodester_exam
+      MYSQL_USER: quiz_user
+      MYSQL_PASSWORD: ""
+    volumes:
+      - fc4_mysql_data:/var/lib/mysql
+      - ../../FullChain/FullChain4/CVE-2022-32991/sourcecodester_exam.sql:/docker-entrypoint-initdb.d/sourcecodester_exam.sql
+      - ./flags/flag1.sql:/docker-entrypoint-initdb.d/flag.sql
+      - ./flags/hint1.sql:/docker-entrypoint-initdb.d/hint.sql
+    networks:
+      net1:
+        ipv4_address: 172.28.0.10
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+
+  cve-2023-50564:
+    build: ../../FullChain/FullChain4/CVE-2023-50564
+    ports:
+      - "${FC4_CVE_2023_50564_PORT:-9009}:80"
+    volumes:
+      - ./flags/flag2.txt:/tmp/flag.txt:ro
+      - ./flags/hint.txt:/tmp/hint.txt:ro
+      - ../scripts/active_defense_guard.sh:/usr/local/bin/active_defense_guard.sh:ro
+    entrypoint: ["/bin/bash", "-c", "/usr/local/bin/active_defense_guard.sh & exec apache2-foreground"]
+    environment:
+      - DEFENSE_TARGET_SERVICE=cve-2023-50564
+      - DEFENSE_AFFECTED_CAPABILITY=pluck_upload_rce
+      - WATCH_DIR=/var/www/html/data
+      - TRIGGER_DELAY=15
+    networks:
+      net1:
+        ipv4_address: 172.28.0.3
+      net2:
+        ipv4_address: 172.29.0.2
+
+  cve-2024-23897:
+    build: ../../FullChain/FullChain4/CVE-2024-23897
+    volumes:
+      - ./flags/flag3.txt:/flag.txt:ro
+    networks:
+      net2:
+        ipv4_address: 172.29.0.3 
+
+volumes:
+  fc4_mysql_data:
+    driver: local

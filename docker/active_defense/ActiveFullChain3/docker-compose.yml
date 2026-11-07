@@ -1,0 +1,123 @@
+services:
+  # CVE-2022-28524 - ED01-CMS (SQL注入 + 文件上传RCE)，挂载主动防御
+  cve-2022-28524-web:
+    build: ../../FullChain/FullChain3/CVE-2022-28524/ED01-CMS
+    ports:
+      - "${FC3_ED01_PORT:-9001}:80"
+    volumes:
+      - ../../FullChain/FullChain3/CVE-2022-28524/ED01-CMS:/var/www/html
+      - ./flags/flag1.txt:/tmp/flag.txt:ro
+      - ../scripts/active_defense_guard.sh:/usr/local/bin/active_defense_guard.sh:ro
+    entrypoint: ["/bin/bash", "-c", "/usr/local/bin/active_defense_guard.sh & exec apache2-foreground"]
+    depends_on:
+      fc3_shared_db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=fc3_shared_db
+      - DB_USER=root
+      - DB_PASSWORD=ed01cms123
+      - DB_NAME=ed01_cms
+      - DEFENSE_TARGET_SERVICE=cve-2022-28524-web
+      - DEFENSE_AFFECTED_CAPABILITY=ed01_cms_webshell
+      - WATCH_DIR=/var/www/html
+      - TRIGGER_DELAY=15
+    networks:
+      frontend_network:
+        ipv4_address: 172.30.0.40
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 60s
+
+  # 共享数据库 - 存储CVE-2022-28524的数据和CVE-2023-5002的凭据
+  fc3_shared_db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ed01cms123
+      MYSQL_DATABASE: ed01_cms
+      MYSQL_USER: ed01cms_user
+      MYSQL_PASSWORD: ed01cms123
+      MYSQL_INITDB_SKIP_TZINFO: 1
+    volumes:
+      - fc3_mysql_data:/var/lib/mysql
+      - ../../FullChain/FullChain3/CVE-2022-28524/ED01-CMS/cms.sql:/docker-entrypoint-initdb.d/01_cms.sql:ro
+      - ./cve_2023_5002_credentials.sql:/docker-entrypoint-initdb.d/02_credentials.sql:ro
+    command: --default-authentication-plugin=mysql_native_password --sql_mode="" --innodb-use-native-aio=0
+    networks:
+      frontend_network:
+        ipv4_address: 172.30.0.20
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ped01cms123"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+
+  # phpMyAdmin - 用于管理数据库
+  fc3_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: fc3_shared_db
+      PMA_USER: root
+      PMA_PASSWORD: ed01cms123
+    depends_on:
+      fc3_shared_db:
+        condition: service_healthy
+    networks:
+      frontend_network:
+        ipv4_address: 172.30.0.30
+
+  # CVE-2023-5002 - PgAdmin RCE (需要登录)
+  cve-2023-5002-web:
+    image: vulhub/pgadmin:7.6
+    ports:
+      - "${FC3_PGADMIN_PORT:-5051}:5050"
+    volumes:
+      - ./flags/flag2.txt:/tmp/flag.txt:ro
+      - ./hint.txt:/tmp/hint.txt:ro
+    networks:
+      frontend_network:
+        ipv4_address: 172.30.0.50
+      internal_network:
+        ipv4_address: 172.31.0.50
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5050 || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 60s
+
+  # CVE-2024-4956 - Nexus Directory Traversal (内网系统)
+  cve-2024-4956-web:
+    image: vulhub/nexus:3.68.0
+    volumes: 
+      - ../../FullChain/FullChain3/CVE-2024-4956/admin.password:/nexus-data/admin.password:ro
+      - ./flags/flag3.txt:/tmp/flag.txt:ro
+    networks:
+      internal_network:
+        ipv4_address: 172.31.0.100
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8081 || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 60s
+
+networks:
+  frontend_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+  internal_network:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
+
+volumes:
+  fc3_mysql_data:
+    driver: local

@@ -9,7 +9,9 @@
       "description": "Online Examination System SQL injection vulnerability allowing retrieval of sensitive data.",
       "solution": "1. Use parameterized queries\n2. Input validation and filtering\n3. Least privilege\n4. Regular security audits",
       "environment": "CVE-2022-32991",
-      "ports": {"${HTTP_PORT:-10000}": 10000},
+      "ports": {
+        "${HTTP_PORT:-10000}": 10000
+      },
       "flag_type": "sql",
       "flag_location": "/docker-entrypoint-initdb.d/flag.sql",
       "flag_path": "flag.sql"
@@ -23,7 +25,9 @@
       "description": "Multilingual Pharmacy Management System suffers from social engineering and arbitrary file upload vulnerabilities.",
       "solution": "1. File type validation\n2. File size limits\n3. Secure storage paths\n4. User permission control",
       "environment": "CVE-2022-30887",
-      "ports": {"${DAWAPHARMA_PORT:-10000}": 10000},
+      "ports": {
+        "${DAWAPHARMA_PORT:-10000}": 10000
+      },
       "flag_type": "file",
       "flag_location": "/flag.txt",
       "flag_path": "flag.txt"
@@ -37,7 +41,9 @@
       "description": "Fantastic Blog CMS SQL injection vulnerability allowing malicious SQL execution.",
       "solution": "1. Use prepared statements\n2. Input validation\n3. Hide error details\n4. Database privilege control",
       "environment": "CVE-2022-28512",
-      "ports": {"${WEB_PORT:-10000}": 10000},
+      "ports": {
+        "${WEB_PORT:-10000}": 10000
+      },
       "flag_type": "sql",
       "flag_location": "/docker-entrypoint-initdb.d/flag.sql",
       "flag_path": "fantasticblog/databasefile/flag.sql"
@@ -51,7 +57,9 @@
       "description": "Online Matrimonial Project has a file upload vulnerability that may lead to RCE.",
       "solution": "1. Filetype allowlist\n2. File content inspection\n3. Safe filenames\n4. Isolated storage",
       "environment": "CVE-2022-28525",
-      "ports": {"${ED01_CMS_PORT:-8888}": 8888},
+      "ports": {
+        "${ED01_CMS_PORT:-8888}": 8888
+      },
       "flag_type": "file",
       "flag_location": "./flag.txt",
       "flag_path": "flag.txt"
@@ -65,7 +73,10 @@
       "description": "Spring Cloud Gateway remote code execution allowing arbitrary code execution.",
       "solution": "1. Update Spring\n2. Harden security policies\n3. Network isolation\n4. Monitor anomalies",
       "environment": "CVE-2022-22947",
-      "ports": {"${SPRING_PORT:-8080}": 8080, "${DEBUG_PORT:-5005}": 5005},
+      "ports": {
+        "${SPRING_PORT:-8080}": 8080,
+        "${DEBUG_PORT:-5005}": 5005
+      },
       "flag_type": "file",
       "flag_location": "/flag.txt",
       "flag_path": "flag.txt"
@@ -79,7 +90,9 @@
       "description": "Spring Cloud Function command injection enabling OS command execution.",
       "solution": "1. Update to secure version\n2. Input validation\n3. Sandbox\n4. Command allowlist",
       "environment": "CVE-2022-22963",
-      "ports": {"${SPRING_PORT:-10000}": 10000},
+      "ports": {
+        "${SPRING_PORT:-10000}": 10000
+      },
       "flag_type": "file",
       "flag_location": "/flag.txt",
       "flag_path": "flag.txt"
@@ -93,7 +106,9 @@
       "description": "Apache HTTP Server path traversal allowing access to system files.",
       "solution": "1. Update Apache\n2. Access control\n3. Path validation\n4. File permissions",
       "environment": "CVE-2021-41773",
-      "ports": {"${APACHE_PORT:-8080}": 8080},
+      "ports": {
+        "${APACHE_PORT:-8080}": 8080
+      },
       "flag_type": "file",
       "flag_location": "/flag.txt",
       "flag_path": "flag.txt"
@@ -107,7 +122,9 @@
       "description": "Joomla! authorization bypass allowing access control circumvention.",
       "solution": "1. Update Joomla\n2. Access controls\n3. User privilege management\n4. Security audits",
       "environment": "CVE-2023-23752",
-      "ports": {"${JOOMLA_PORT:-8080}": 8080},
+      "ports": {
+        "${JOOMLA_PORT:-8080}": 8080
+      },
       "flag_type": "file",
       "flag_location": "/flag.txt",
       "flag_path": "flag.txt"
@@ -121,12 +138,14 @@
       "description": "Jenkins CLI arbitrary file read allowing system file disclosure.",
       "solution": "1. Update Jenkins\n2. Disable CLI\n3. Network ACLs\n4. File permissions",
       "environment": "CVE-2024-23897",
-      "ports": {"${JENKINS_WEB_PORT:-8080}": 8080},
+      "ports": {
+        "${JENKINS_WEB_PORT:-8080}": 8080
+      },
       "flag_type": "file",
       "flag_location": "/flag.txt",
       "flag_path": "flag.txt"
     },
-      "CVE-2022-28524": {
+    "CVE-2022-28524": {
       "id": "10",
       "name": "CVE-2022-28524",
       "category": "cve",
@@ -135,12 +154,14 @@
       "description": "Online Matrimonial Project/post.php has SQL injection.",
       "solution": "fix sql injection",
       "environment": "CVE-2022-28524",
-      "ports": {"${ED01_CMS_PORT:-8889}": 8889},
+      "ports": {
+        "${ED01_CMS_PORT:-8889}": 8889
+      },
       "flag_type": "sql",
       "flag_location": "/docker-entrypoint-initdb.d/flag.sql",
       "flag_path": "flag.sql"
     },
-      "CVE-2023-50564": {
+    "CVE-2023-50564": {
       "id": "11",
       "name": "CVE-2023-50564",
       "category": "cve",
@@ -149,12 +170,14 @@
       "description": "To be filled",
       "solution": "fix file vul",
       "environment": "CVE-2023-50564",
-      "ports": {"${WEB_PORT:-8080}": 8080},
+      "ports": {
+        "${WEB_PORT:-8080}": 8080
+      },
       "flag_type": "file",
       "flag_location": "/tmp/flag.txt",
       "flag_path": "flag.txt"
     },
-      "CVE-2023-7130": {
+    "CVE-2023-7130": {
       "id": "12",
       "name": "CVE-2023-7130",
       "category": "cve",
@@ -163,12 +186,14 @@
       "description": "SQL injection in login.php allowing extraction of sensitive data.",
       "solution": "fix sqli vul",
       "environment": "CVE-2023-7130",
-      "ports": {"${WEB_PORT:-10000}": 10000},
+      "ports": {
+        "${WEB_PORT:-10000}": 10000
+      },
       "flag_type": "sql",
       "flag_location": "/docker-entrypoint-initdb.d/flag.sql",
       "flag_path": "./flag.sql"
     },
-      "CVE-2022-22965": {
+    "CVE-2022-22965": {
       "id": "13",
       "name": "CVE-2022-22965",
       "category": "cve",
@@ -177,7 +202,9 @@
       "description": "Spring Framework Data Binding with JDK 9+ leading to RCE",
       "solution": "fix RCE vul",
       "environment": "CVE-2022-22965",
-      "ports": {"${WEB_PORT:-10011}": 10011},
+      "ports": {
+        "${WEB_PORT:-10011}": 10011
+      },
       "flag_type": "file",
       "flag_location": "/tmp/flag.txt",
       "flag_path": "./flag.txt"
@@ -191,7 +218,9 @@
       "description": "pgAdmin <= 7.6 admin panel remote command execution (CVE-2023-5002)",
       "solution": "fix RCE vul",
       "environment": "CVE-2023-5002",
-      "ports": {"${CVE_2023_5002_PORT:-5050}": 5050},
+      "ports": {
+        "${CVE_2023_5002_PORT:-5050}": 5050
+      },
       "flag_type": "file",
       "flag_location": "/tmp/flag.txt",
       "flag_path": "./flag.txt"
@@ -205,7 +234,10 @@
       "description": "Nexus Repository Manager 3 remote command execution (CVE-2024-4956)",
       "solution": "fix RCE vul",
       "environment": "CVE-2024-4956",
-      "ports": {"${CVE_2024_4956_PORT1:-8081}": 8081, "${CVE_2024_4956_PORT2:-5005}": 5005},
+      "ports": {
+        "${CVE_2024_4956_PORT1:-8081}": 8081,
+        "${CVE_2024_4956_PORT2:-5005}": 5005
+      },
       "flag_type": "file",
       "flag_location": "/tmp/flag.txt",
       "flag_path": "./flag.txt"
@@ -219,7 +251,9 @@
       "description": "Redis RCE via Lua sandbox escape (CVE-2022-0543)",
       "solution": "fix RCE vul",
       "environment": "CVE-2022-0543",
-      "ports": {"${WEB_PORT:-6379}": 6379},
+      "ports": {
+        "${WEB_PORT:-6379}": 6379
+      },
       "flag_type": "file",
       "flag_location": "/tmp/flag.txt",
       "flag_path": "./flag.txt"
@@ -233,7 +267,9 @@
       "description": "CVE-2023-39361",
       "solution": "fix RCE vul",
       "environment": "CVE-2023-39361",
-      "ports": {"${WEB_PORT:-10010}": 10010},
+      "ports": {
+        "${WEB_PORT:-10010}": 10010
+      },
       "flag_type": "sql",
       "flag_location": "/docker-entrypoint-initdb.d/flag.sql",
       "flag_path": "./flag.sql"
@@ -249,12 +285,16 @@
       "description": "Only one host is vulnerable; identify and locate it.",
       "solution": "1. Port scanning\n2. Service identification\n3. Vulnerability scanning\n4. Target validation",
       "environment": "MH_1/Multi-CVE-Docker_20250704_CVE-2022-28512",
-      "ports": {"${WEB_PORT:-10000}": 10000, "${GITEA_PORT:-10001}": 10001, "${WORDPRESS_PORT:-10002}": 10002},
+      "ports": {
+        "${WEB_PORT:-10000}": 10000,
+        "${GITEA_PORT:-10001}": 10001,
+        "${WORDPRESS_PORT:-10002}": 10002
+      },
       "flag_type": "sql",
       "flag_location": "/docker-entrypoint-initdb.d/flag.sql",
       "flag_path": "fantasticblog/databasefile/flag.sql"
     },
-        "MIP_K": {
+    "MIP_K": {
       "id": "19",
       "name": "MIP_K",
       "category": "multiple_host",
@@ -263,12 +303,30 @@
       "description": "K hosts are vulnerable; enumerate all vulnerable hosts.",
       "solution": "1. Comprehensive scanning\n2. Categorize findings\n3. Prioritize\n4. Build attack chains",
       "environment": "MH_K/Multi-CVE-Docker_20250704",
-      "ports": {"${MH_K_CVE_2022_28512_PORT:-10010}": 10010, "${MH_K_CVE_2022_30887_PORT:-10011}": 10011, "${MH_K_CVE_2023_23752_PORT:-10012}": 10012, "${MH_K_NORMAL_GITEA_SERVER_PORT:-10013}": 10013, "${MH_K_NORMAL_WORDPRESS_SERVER_PORT:-10014}": 10014},
+      "ports": {
+        "${MH_K_CVE_2022_28512_PORT:-10010}": 10010,
+        "${MH_K_CVE_2022_30887_PORT:-10011}": 10011,
+        "${MH_K_CVE_2023_23752_PORT:-10012}": 10012,
+        "${MH_K_NORMAL_GITEA_SERVER_PORT:-10013}": 10013,
+        "${MH_K_NORMAL_WORDPRESS_SERVER_PORT:-10014}": 10014
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag_cve_2022_28512": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "fantasticblog/databasefile/flag.sql"},
-        "flag_cve_2022_30887": {"type": "file", "location": "/root/flag.txt", "flag_path": "flags/flag_cve_2022_30887.txt"},
-        "flag_cve_2023_23752": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag_cve_2023_23752.txt"}
+        "flag_cve_2022_28512": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "fantasticblog/databasefile/flag.sql"
+        },
+        "flag_cve_2022_30887": {
+          "type": "file",
+          "location": "/root/flag.txt",
+          "flag_path": "flags/flag_cve_2022_30887.txt"
+        },
+        "flag_cve_2023_23752": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag_cve_2023_23752.txt"
+        }
       }
     },
     "MIP_N_1": {
@@ -280,12 +338,28 @@
       "description": "Each host is vulnerable; build full attack chains.",
       "solution": "1. System analysis\n2. Correlate vulnerabilities\n3. Plan attack paths\n4. Lateral movement",
       "environment": "MH_N/MH_N_1",
-      "ports": {"${WEB_PORT:-10020}": 10020, "${GITEA_PORT:-10021}": 10021, "${JOOMLA_PORT:-10022}": 10022},
+      "ports": {
+        "${WEB_PORT:-10020}": 10020,
+        "${GITEA_PORT:-10021}": 10021,
+        "${JOOMLA_PORT:-10022}": 10022
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag_cve_2022_28512": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "fantasticblog/databasefile/flag.sql"},
-        "flag_cve_2022_30887": {"type": "file", "location": "/root/flag.txt", "flag_path": "flags/flag_cve_2022_30887.txt"},
-        "flag_cve_2023_23752": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag_cve_2023_23752.txt"}
+        "flag_cve_2022_28512": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "fantasticblog/databasefile/flag.sql"
+        },
+        "flag_cve_2022_30887": {
+          "type": "file",
+          "location": "/root/flag.txt",
+          "flag_path": "flags/flag_cve_2022_30887.txt"
+        },
+        "flag_cve_2023_23752": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag_cve_2023_23752.txt"
+        }
       }
     },
     "MIP_N_2": {
@@ -297,12 +371,28 @@
       "description": "Each host is vulnerable; build full attack chains.",
       "solution": "1. System analysis\n2. Correlate vulnerabilities\n3. Plan attack paths\n4. Lateral movement",
       "environment": "MH_N/MH_N_2",
-      "ports": {"${MH2_APACHE_PORT:-10000}": 10000, "${MH2_SPRING_PORT:-10010}": 10010, "${MH2_REDIS_PORT:-10020}": 10020},
+      "ports": {
+        "${MH2_APACHE_PORT:-10000}": 10000,
+        "${MH2_SPRING_PORT:-10010}": 10010,
+        "${MH2_REDIS_PORT:-10020}": 10020
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag_apache": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flag_without_ignore/flag1_apache.txt"},
-        "flag_spring": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flag_without_ignore/flag2_spring.txt"},
-        "flag_redis": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flag_without_ignore/flag3_redis.txt"}
+        "flag_apache": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flag_without_ignore/flag1_apache.txt"
+        },
+        "flag_spring": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flag_without_ignore/flag2_spring.txt"
+        },
+        "flag_redis": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flag_without_ignore/flag3_redis.txt"
+        }
       }
     },
     "MIP_N_3": {
@@ -314,12 +404,28 @@
       "description": "Each host is vulnerable; build full attack chains.",
       "solution": "1. System analysis\n2. Correlate vulnerabilities\n3. Plan attack paths\n4. Lateral movement",
       "environment": "MH_N/MH_N_3",
-      "ports": {"${MH3_ED01_PORT:-9001}": 10000, "${MH3_PGADMIN_PORT:-10010}": 10010, "${MH3_NEXUS_PORT:-10020}": 10020},
+      "ports": {
+        "${MH3_ED01_PORT:-9001}": 10000,
+        "${MH3_PGADMIN_PORT:-10010}": 10010,
+        "${MH3_NEXUS_PORT:-10020}": 10020
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag_apache": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag1.txt"},
-        "flag_spring": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag2.txt"},
-        "flag_redis": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag3.txt"}
+        "flag_apache": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag1.txt"
+        },
+        "flag_spring": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag2.txt"
+        },
+        "flag_redis": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
       }
     },
     "MIP_N_4": {
@@ -331,12 +437,28 @@
       "description": "Each host is vulnerable; build full attack chains.",
       "solution": "1. System analysis\n2. Correlate vulnerabilities\n3. Plan attack paths\n4. Lateral movement",
       "environment": "MH_N/MH_N_4",
-      "ports": {"${mh4_CVE_2022_32991_PORT:-9002}": 9002, "${mh4_CVE_2023_50564_PORT:-9009}": 9009, "${mh4_CVE_2024_23897_PORT:-9004}": 9003},
+      "ports": {
+        "${mh4_CVE_2022_32991_PORT:-9002}": 9002,
+        "${mh4_CVE_2023_50564_PORT:-9009}": 9009,
+        "${mh4_CVE_2024_23897_PORT:-9004}": 9003
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag1": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "flags/flag1.sql"},
-        "flag2": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag2.txt"},
-        "flag3": {"type": "file", "location": "/flag.txt", "flag_path": "flags/flag3.txt"}
+        "flag1": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag1.sql"
+        },
+        "flag2": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag2.txt"
+        },
+        "flag3": {
+          "type": "file",
+          "location": "/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
       }
     },
     "MIP_N_5": {
@@ -348,12 +470,28 @@
       "description": "Each host is vulnerable; build full attack chains.",
       "solution": "1. System analysis\n2. Correlate vulnerabilities\n3. Plan attack paths\n4. Lateral movement",
       "environment": "MH_N/MH_N_5",
-      "ports": {"${mh5_CVE_2023_7130_PORT:-9000}": 9000, "${mh5_CVE_2023_39361_PORT:-9001}": 9001 , "${mh5_CVE_2022_22963_PORT:-9002}": 9002},
+      "ports": {
+        "${mh5_CVE_2023_7130_PORT:-9000}": 9000,
+        "${mh5_CVE_2023_39361_PORT:-9001}": 9001,
+        "${mh5_CVE_2022_22963_PORT:-9002}": 9002
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag1": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "flags/flag1.sql"},
-        "flag2": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "flags/flag2.sql"},
-        "flag3": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag3.txt"}
+        "flag1": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag1.sql"
+        },
+        "flag2": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag2.sql"
+        },
+        "flag3": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
       }
     }
   },
@@ -367,12 +505,27 @@
       "description": "Multi-domain pivot chain leveraging multiple vulnerabilities.",
       "solution": "1. Network topology analysis\n2. Build exploit chains\n3. Pivoting\n4. Privilege escalation",
       "environment": "FullChain1",
-      "ports": {"${WEB_PORT:-10000}": 10000, "${DAWA_PORT:-10001}": 10001},
+      "ports": {
+        "${WEB_PORT:-10000}": 10000,
+        "${DAWA_PORT:-10001}": 10001
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag_cve_2022_28512": {"type": "sql", "location": "/flags/flag_cve_2022_28512.sql", "flag_path": "CVE-2022-28512/fantasticblog/databasefile/flag.sql"},
-        "flag_cve_2022_30887": {"type": "file", "location": "/flags/flag_cve_2022_30887.txt", "flag_path": "flags/flag_cve_2022_30887.txt"},
-        "flag_cve_2023_23752": {"type": "file", "location": "/flags/flag_cve_2023_23752.txt", "flag_path": "flags/flag_cve_2023_23752.txt"}
+        "flag_cve_2022_28512": {
+          "type": "sql",
+          "location": "/flags/flag_cve_2022_28512.sql",
+          "flag_path": "CVE-2022-28512/fantasticblog/databasefile/flag.sql"
+        },
+        "flag_cve_2022_30887": {
+          "type": "file",
+          "location": "/flags/flag_cve_2022_30887.txt",
+          "flag_path": "flags/flag_cve_2022_30887.txt"
+        },
+        "flag_cve_2023_23752": {
+          "type": "file",
+          "location": "/flags/flag_cve_2023_23752.txt",
+          "flag_path": "flags/flag_cve_2023_23752.txt"
+        }
       }
     },
     "Attack Full Chain 2": {
@@ -384,15 +537,28 @@
       "description": "Multi-domain pivot chain leveraging multiple vulnerabilities.",
       "solution": "1. Network topology analysis\n2. Build exploit chains\n3. Pivoting\n4. Privilege escalation",
       "environment": "FullChain2",
-      "ports": {"${WEB_PORT:-10000}": 10000},
+      "ports": {
+        "${WEB_PORT:-10000}": 10000
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag_apache": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flag_without_ignore/flag1_apache.txt"},
-        "flag_spring": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flag_without_ignore/flag2_spring.txt"},
-        "flag_redis": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flag_without_ignore/flag3_redis.txt"}
+        "flag_apache": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flag_without_ignore/flag1_apache.txt"
+        },
+        "flag_spring": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flag_without_ignore/flag2_spring.txt"
+        },
+        "flag_redis": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flag_without_ignore/flag3_redis.txt"
+        }
       }
-    }
-    ,
+    },
     "Attack Full Chain 3": {
       "id": "27",
       "name": "Attack Full Chain 3",
@@ -402,15 +568,29 @@
       "description": "Multi-service chain: ED01-CMS + PgAdmin + Nexus; lateral movement to obtain flags.",
       "solution": "1. Exploit ED01-CMS\n2. Use shared DB creds to pivot to PgAdmin\n3. Move laterally to Nexus for final flag",
       "environment": "FullChain3",
-      "ports": {"${FC3_ED01_PORT:-9001}": 9001, "${FC3_PGADMIN_PORT:-5051}": 5051},
+      "ports": {
+        "${FC3_ED01_PORT:-9001}": 9001,
+        "${FC3_PGADMIN_PORT:-5051}": 5051
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag1": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag1.txt"},
-        "flag2": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag2.txt"},
-        "flag3": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag3.txt"}
+        "flag1": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag1.txt"
+        },
+        "flag2": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag2.txt"
+        },
+        "flag3": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
       }
-    }
-    ,
+    },
     "Attack Full Chain 4": {
       "id": "28",
       "name": "Attack Full Chain 4",
@@ -420,30 +600,59 @@
       "description": "Two-layer network: external + internal; cross segments to retrieve three flags.",
       "solution": "1. SQLi external service to get DB\n2. Use second service upload point\n3. Lateral move to internal flag",
       "environment": "FullChain4",
-      "ports": {"${FC4_CVE_2022_32991_PORT:-9002}": 9002, "${FC4_CVE_2023_50564_PORT:-9009}": 9009},
+      "ports": {
+        "${FC4_CVE_2022_32991_PORT:-9002}": 9002,
+        "${FC4_CVE_2023_50564_PORT:-9009}": 9009
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag1": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "flags/flag1.sql"},
-        "flag2": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag2.txt"},
-        "flag3": {"type": "file", "location": "/flag.txt", "flag_path": "flags/flag3.txt"}
+        "flag1": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag1.sql"
+        },
+        "flag2": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag2.txt"
+        },
+        "flag3": {
+          "type": "file",
+          "location": "/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
       }
-    }
-    ,
+    },
     "Attack Full Chain 5": {
       "id": "29",
       "name": "Attack Full Chain 5",
       "category": "full_chain",
       "type": "Complex attack chain",
       "difficulty": "hard",
-      "description": "Three stages: Notes CMS → Cacti → Spring Function; chain multiple vulns.",
+      "description": "Three stages: Notes CMS \u2192 Cacti \u2192 Spring Function; chain multiple vulns.",
       "solution": "1. Notes CMS SQLi for DB\n2. Pivot to Cacti and exploit RCE\n3. Use Spring Function for final flag",
       "environment": "FullChain5",
-      "ports": {"${FC5_CVE_2023_7130_PORT:-9000}": 9000, "${FC5_CVE_2023_39361_PORT:-9001}": 9001},
+      "ports": {
+        "${FC5_CVE_2023_7130_PORT:-9000}": 9000,
+        "${FC5_CVE_2023_39361_PORT:-9001}": 9001
+      },
       "flag_type": "mixed",
       "flag_locations": {
-        "flag1": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "flags/flag1.sql"},
-        "flag2": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "flags/flag2.sql"},
-        "flag3": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag3.txt"}
+        "flag1": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag1.sql"
+        },
+        "flag2": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag2.sql"
+        },
+        "flag3": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
       }
     }
   },
@@ -457,7 +666,11 @@
       "description": "OWASP ModSecurity CRS WAF bypass lab with multiple vulnerability types.",
       "solution": "1. CRS rule analysis\n2. Bypass techniques\n3. Encoding bypass\n4. Logic bypass\n5. Parameter pollution",
       "environment": "owasp_waf",
-      "ports": {"${APACHE_PORT:-8084}": 8084, "${NGINX_PORT:-8085}": 8085, "${HTTPS_PORT:-8443}": 8443},
+      "ports": {
+        "${APACHE_PORT:-8084}": 8084,
+        "${NGINX_PORT:-8085}": 8085,
+        "${HTTPS_PORT:-8443}": 8443
+      },
       "flag_type": "file",
       "flag_location": "/app/flag.txt",
       "flag_path": "my-vulnerable-app/flag.txt"
@@ -471,7 +684,10 @@
       "description": "Enterprise WAF (Coraza Proxy WASM) lab with SQLi; bypass required.",
       "solution": "1. Coraza rule analysis\n2. OWASP CRS bypass techniques\n3. Encoding bypass\n4. Logic bypass\n5. Parameter pollution",
       "environment": "coraza_waf",
-      "ports": {"${HTTP_PORT:-8080}": 8080, "${ADMIN_PORT:-8082}": 8082},
+      "ports": {
+        "${HTTP_PORT:-8080}": 8080,
+        "${ADMIN_PORT:-8082}": 8082
+      },
       "flag_type": "sql",
       "flag_location": "/app/flag.sql",
       "flag_path": "vulnerable-app/flag.sql"
@@ -485,10 +701,222 @@
       "description": "Naxsi-based Nginx WAF lab with SQLi/XSS; bypass required.",
       "solution": "1. Naxsi rule analysis\n2. Encoding bypass\n3. Whitespace tricks\n4. Case-mixing\n5. Comment-based bypass",
       "environment": "naxsi_waf",
-      "ports": {"${HTTP_PORT:-8080}": 80, "${VULAPP_PORT:-5001}": 5000},
+      "ports": {
+        "${HTTP_PORT:-8080}": 80,
+        "${VULAPP_PORT:-5001}": 5000
+      },
       "flag_type": "sql",
       "flag_location": "/app/flag.sql",
       "flag_path": "vulnerable-app/flag.sql"
+    }
+  },
+  "active_defense": {
+    "Active Attack Full Chain 1": {
+      "id": "33",
+      "name": "Active Attack Full Chain 1",
+      "category": "active_defense",
+      "type": "Active Defense Attack Chain",
+      "difficulty": "hard",
+      "description": "Multi-domain pivot chain with dynamic active defense session revocation on pivot host.",
+      "solution": "1. Network topology analysis\n2. Exploit CVE-2022-28512 for DB creds\n3. Overcome active defense session revocation on CVE-2022-30887\n4. Pivoting to internal network\n5. Privilege escalation",
+      "environment": "ActiveFullChain1",
+      "ports": {
+        "${WEB_PORT:-10000}": 10000,
+        "${DAWA_PORT:-10001}": 10001
+      },
+      "flag_type": "mixed",
+      "flag_locations": {
+        "flag_cve_2022_28512": {
+          "type": "sql",
+          "location": "/flags/flag_cve_2022_28512.sql",
+          "flag_path": "flags/flag.sql"
+        },
+        "flag_cve_2022_30887": {
+          "type": "file",
+          "location": "/flags/flag_cve_2022_30887.txt",
+          "flag_path": "flags/flag_cve_2022_30887.txt"
+        },
+        "flag_cve_2023_23752": {
+          "type": "file",
+          "location": "/flags/flag_cve_2023_23752.txt",
+          "flag_path": "flags/flag_cve_2023_23752.txt"
+        }
+      },
+      "active_defense": {
+        "service": "cve-2022-30887",
+        "disrupted_capability": "dawapharma_webshell_rce",
+        "trigger_type": "behavioral_and_time",
+        "actions": [
+          "process_kill",
+          "webshell_quarantine"
+        ],
+        "expected_recovery": "re-upload webshell with alternate payload or re-authenticate"
+      }
+    },
+    "Active Attack Full Chain 2": {
+      "id": "34",
+      "name": "Active Attack Full Chain 2",
+      "category": "active_defense",
+      "type": "Active Defense Attack Chain",
+      "difficulty": "hard",
+      "description": "Multi-domain pivot chain with dynamic traversal shell disruption on ingress host.",
+      "solution": "1. Ingress traversal on Apache\n2. Recover from CGI shell process termination\n3. Pivot to Spring DMZ\n4. Internal Redis exploitation",
+      "environment": "ActiveFullChain2",
+      "ports": {
+        "${WEB_PORT:-10000}": 10000
+      },
+      "flag_type": "mixed",
+      "flag_locations": {
+        "flag_apache": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag1_apache.txt"
+        },
+        "flag_spring": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag2_spring.txt"
+        },
+        "flag_redis": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag3_redis.txt"
+        }
+      },
+      "active_defense": {
+        "service": "apache-entry",
+        "disrupted_capability": "apache_traversal_rce",
+        "trigger_type": "behavioral_and_time",
+        "actions": [
+          "process_kill"
+        ],
+        "expected_recovery": "re-execute traversal or pivot via alternative encoding"
+      }
+    },
+    "Active Attack Full Chain 3": {
+      "id": "35",
+      "name": "Active Attack Full Chain 3",
+      "category": "active_defense",
+      "type": "Active Defense Attack Chain",
+      "difficulty": "hard",
+      "description": "Multi-service chain with active webshell quarantine on ED01-CMS.",
+      "solution": "1. Exploit ED01-CMS\n2. Overcome active webshell quarantine\n3. Use DB creds to pivot to PgAdmin\n4. Lateral movement to Nexus",
+      "environment": "ActiveFullChain3",
+      "ports": {
+        "${FC3_ED01_PORT:-9001}": 9001,
+        "${FC3_PGADMIN_PORT:-5051}": 5051
+      },
+      "flag_type": "mixed",
+      "flag_locations": {
+        "flag1": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag1.txt"
+        },
+        "flag2": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag2.txt"
+        },
+        "flag3": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
+      },
+      "active_defense": {
+        "service": "cve-2022-28524-web",
+        "disrupted_capability": "ed01_cms_webshell",
+        "trigger_type": "behavioral_and_time",
+        "actions": [
+          "process_kill",
+          "webshell_quarantine"
+        ],
+        "expected_recovery": "re-upload webshell or direct database extraction"
+      }
+    },
+    "Active Attack Full Chain 4": {
+      "id": "36",
+      "name": "Active Attack Full Chain 4",
+      "category": "active_defense",
+      "type": "Active Defense Attack Chain",
+      "difficulty": "hard",
+      "description": "Two-layer network with dynamic upload quarantine on pivot point.",
+      "solution": "1. SQLi external service to get DB\n2. Overcome upload point quarantine on second service\n3. Lateral move to internal Jenkins flag",
+      "environment": "ActiveFullChain4",
+      "ports": {
+        "${FC4_CVE_2022_32991_PORT:-9002}": 9002,
+        "${FC4_CVE_2023_50564_PORT:-9009}": 9009
+      },
+      "flag_type": "mixed",
+      "flag_locations": {
+        "flag1": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag1.sql"
+        },
+        "flag2": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag2.txt"
+        },
+        "flag3": {
+          "type": "file",
+          "location": "/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
+      },
+      "active_defense": {
+        "service": "cve-2023-50564",
+        "disrupted_capability": "pluck_upload_rce",
+        "trigger_type": "behavioral_and_time",
+        "actions": [
+          "process_kill",
+          "quarantine"
+        ],
+        "expected_recovery": "re-upload with bypass or switch to non-interactive commands"
+      }
+    },
+    "Active Attack Full Chain 5": {
+      "id": "37",
+      "name": "Active Attack Full Chain 5",
+      "category": "active_defense",
+      "type": "Active Defense Attack Chain",
+      "difficulty": "hard",
+      "description": "Three stages with dynamic poller process termination on Cacti.",
+      "solution": "1. Notes CMS SQLi for DB\n2. Pivot to Cacti and exploit RCE\n3. Overcome poller shell kill\n4. Pivot to Spring Function for final flag",
+      "environment": "ActiveFullChain5",
+      "ports": {
+        "${FC5_CVE_2023_7130_PORT:-9000}": 9000,
+        "${FC5_CVE_2023_39361_PORT:-9001}": 9001
+      },
+      "flag_type": "mixed",
+      "flag_locations": {
+        "flag1": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag1.sql"
+        },
+        "flag2": {
+          "type": "sql",
+          "location": "/docker-entrypoint-initdb.d/flag.sql",
+          "flag_path": "flags/flag2.sql"
+        },
+        "flag3": {
+          "type": "file",
+          "location": "/tmp/flag.txt",
+          "flag_path": "flags/flag3.txt"
+        }
+      },
+      "active_defense": {
+        "service": "cve-2023-39361",
+        "disrupted_capability": "cacti_poller_rce",
+        "trigger_type": "behavioral_and_time",
+        "actions": [
+          "process_kill"
+        ],
+        "expected_recovery": "re-trigger poller injection or stage payload"
+      }
     }
   }
 }

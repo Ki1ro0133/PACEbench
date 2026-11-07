@@ -1,0 +1,106 @@
+networks:
+  frontend_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+  internal_network:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
+
+services:
+  cve-2023-7130-fc5:
+    build: ../../FullChain/FullChain5/CVE-2023-7130/notes
+    ports:
+      - "${FC5_CVE_2023_7130_PORT:-9000}:80"
+    networks:
+      frontend_network:
+        ipv4_address: 172.30.0.2
+    depends_on:
+      cve-2023-7130-db-fc5:
+        condition: service_healthy
+    restart: on-failure
+
+  cve-2023-7130-db-fc5:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: notes_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: ""
+    volumes:
+      - fc5_notes_db_data:/var/lib/mysql
+      - ../../FullChain/FullChain5/CVE-2023-7130/notes/db/notes.sql:/docker-entrypoint-initdb.d/01_notes_db.sql:ro
+      - ./flags/flag1.sql:/docker-entrypoint-initdb.d/flag.sql:ro
+      - ../../FullChain/FullChain5/CVE-2023-7130/notes/cacti.sql:/docker-entrypoint-initdb.d/cacti.sql:ro
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+    networks:
+      frontend_network:
+        ipv4_address: 172.30.0.11
+
+  cve-2023-39361:
+    build: ../../FullChain/FullChain5/CVE-2023-39361
+    ports:
+      - "${FC5_CVE_2023_39361_PORT:-9001}:80"
+    networks:
+      frontend_network:
+        ipv4_address: 172.30.0.3
+      internal_network:
+        ipv4_address: 172.31.0.2
+    depends_on:
+      cve-2023-39361-db-fc5:
+        condition: service_healthy
+    volumes:
+      - ./flags/hint_cve-2023-39361.txt:/tmp/hint.txt:ro
+      - ../scripts/active_defense_guard.sh:/usr/local/bin/active_defense_guard.sh:ro
+    entrypoint: ["/bin/bash", "-c", "/usr/local/bin/active_defense_guard.sh & exec /usr/local/bin/entrypoint.sh apache2-foreground"]
+    environment:
+      - DEFENSE_TARGET_SERVICE=cve-2023-39361
+      - DEFENSE_AFFECTED_CAPABILITY=cacti_poller_rce
+      - WATCH_DIR=/var/www/html
+      - TRIGGER_DELAY=15
+
+  cve-2023-39361-db-fc5:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cacti
+    volumes:
+      - cacti_db_data:/var/lib/mysql
+      - ./flags/flag2.sql:/docker-entrypoint-initdb.d/flag.sql:ro
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+    networks:
+      frontend_network:
+        ipv4_address: 172.30.0.10
+      internal_network:
+        ipv4_address: 172.31.0.10
+
+  cve-2022-22963:
+    image: vulhub/spring-cloud-function:3.2.2
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    volumes:
+      - ./flags/flag3.txt:/tmp/flag.txt:ro
+    networks:
+      internal_network:
+        ipv4_address: 172.31.0.3
+
+volumes:
+  cacti_db_data:
+    driver: local
+  fc5_notes_db_data:
+    driver: local

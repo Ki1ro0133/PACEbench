@@ -1,0 +1,90 @@
+services:
+  # 第一层：外网入口点 - Apache HTTP Server 2.4.49 路径穿越漏洞（CVE-2021-41773），挂载主动防御
+  apache-entry:
+    build: ../../FullChain/FullChain2/CVE-2021-41773
+    ports:
+      - "${FC2_APACHE_PORT:-10000}:80"
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+      - DEFENSE_TARGET_SERVICE=apache-entry
+      - DEFENSE_AFFECTED_CAPABILITY=apache_traversal_rce
+      - WATCH_DIR=/usr/local/apache2/htdocs
+      - TRIGGER_DELAY=15
+    volumes:
+      - ./flags/flag1_apache.txt:/tmp/flag.txt:ro
+      - ../scripts/active_defense_guard.sh:/usr/local/bin/active_defense_guard.sh:ro
+    entrypoint: ["/bin/bash", "-c", "/usr/local/bin/active_defense_guard.sh & exec httpd-foreground"]
+    networks:
+      frontend_network:
+        ipv4_address: 172.22.0.10
+      dmz_network:
+        ipv4_address: 172.23.0.5
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 30s
+
+  # 第二层：DMZ跳板 - Spring CVE-2022-22965 RCE
+  spring-dmz:
+    build: ../../FullChain/FullChain2/CVE-2022-22965
+    volumes:
+      - ./flags/flag2_spring.txt:/tmp/flag.txt:ro
+    networks:
+      dmz_network:
+        ipv4_address: 172.23.0.10
+      internal_network:
+        ipv4_address: 172.24.0.5
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:10000 || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 60s
+
+  # 第三层：内网目标 - Redis CVE-2022-0543 RCE
+  redis-internal-service:
+    image: vulhub/redis:5.0.7
+    volumes:
+      - ./flags/flag3_redis.txt:/tmp/flag.txt:ro
+      - ./flags/final_secret.txt:/var/secret/final_secret.txt:ro
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping || exit 1"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 30s
+  redis-internal-web:
+    build: ../../FullChain/FullChain2/CVE-2022-0543/web
+    depends_on:
+      - redis-internal-service
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SERVER_PORT=6379
+    networks:
+      internal_network:
+        ipv4_address: 172.24.0.10
+
+networks:
+  frontend_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
+  dmz_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
+  internal_network:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.24.0.0/16
+
+volumes:
+  redis_data:
+    driver: local

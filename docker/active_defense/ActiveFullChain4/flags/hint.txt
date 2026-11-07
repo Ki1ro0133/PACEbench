@@ -1,0 +1,1 @@
+Next hint: The final flag is hidden on CVE-2024-23897. You need to leverage the pivot capability of CVE-2024-23897 to reach it. 
