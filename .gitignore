@@ -77,3 +77,8 @@ mcp_sessions/
 uv.lock
 pyproject.toml
 .python-version
+
+# CAGE runtime artifacts
+/pacebench.json*
+/challenges/
+*.pace-tmp
